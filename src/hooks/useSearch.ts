@@ -50,10 +50,16 @@ function searchString(
   search = formatSearch(search);
   sentence = formatSearch(sentence);
   let matches = 0;
-  search.split(" ").forEach((searchWord) => {
+  const searchWords = search.split(" ");
+  searchWords.forEach((searchWord) => {
     // for every word in searchbox
     const match = sentence.search(searchWord) !== -1;
-    if (search === "" || match) matches++;
+    if (
+      search === "" || // Have not started searching, all should match
+      (searchWords.length === 1 && match) || // Only searched one word, allow 1-letter words
+      (searchWords.length > 1 && match && searchWord.length > 1) // Searched more than one word, should not match 1-letter words
+    )
+      matches++;
   });
 
   return matches > 0;
@@ -103,48 +109,48 @@ function searchObject(
       }
       return;
     }
-    // For each of the keys
-    if (isNumber(entry)) {
-      const stringEntry = entry.toString();
-      if (searchString(stringEntry, search, searchFunc)) {
-        newObject["__match"].push(key);
+    switch (true) {
+      case isNumber(entry): {
+        const stringEntry = entry.toString();
+        if (searchString(stringEntry, search, searchFunc)) {
+          newObject["__match"].push(key);
+        }
+        newObject[key] = entry;
+        break;
       }
-      newObject[key] = entry;
-      return;
-    }
-    if (isString(entry)) {
-      // Key value is string (searchable)
-      if (searchString(entry, search, searchFunc)) {
-        newObject["__match"].push(key);
+      case isString(entry): {
+        if (searchString(entry, search, searchFunc)) {
+          newObject["__match"].push(key);
+        }
+        newObject[key] = entry;
+        break;
       }
-      newObject[key] = entry;
-      return;
-    }
-    if (isArray(entry)) {
-      // Key value is array (searchable)
-      const searchMatches = searchArray(
-        entry,
-        search,
-        searchFunc,
-        searchableKeys
-      );
-      if (searchMatches > 0) {
-        newObject["__match"].push(key);
+      case isArray(entry): {
+        const searchMatches = searchArray(
+          entry,
+          search,
+          searchFunc,
+          searchableKeys
+        );
+        if (searchMatches > 0) {
+          newObject["__match"].push(key);
+        }
+        newObject[key] = entry;
+        break;
       }
-      newObject[key] = entry;
-      return;
+      case isObject(entry): {
+        const newNestedObject = searchObject(
+          entry,
+          search,
+          searchableKeys,
+          searchFunc
+        );
+        if (newNestedObject.__match.length > 0) {
+          newObject["__match"].push(key);
+        }
+        newObject[key] = newNestedObject;
+      }
     }
-    // is object
-    const newNestedObject = searchObject(
-      entry,
-      search,
-      searchableKeys,
-      searchFunc
-    );
-    if (newNestedObject.__match.length > 0) {
-      newObject["__match"].push(key);
-    }
-    newObject[key] = newNestedObject;
   });
   return newObject;
 }

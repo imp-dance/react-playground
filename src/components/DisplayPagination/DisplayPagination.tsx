@@ -1,4 +1,5 @@
 import React from "react";
+import "./DisplayPagination.css";
 
 interface Props {
   pages: Array<number>;
@@ -6,6 +7,7 @@ interface Props {
   previousPage: () => void;
   nextPage: () => void;
   goToPage: (pageNum: number) => void;
+  buttons: Array<number | string>;
   containerClassname?: string;
   nextPrevClassname?: string;
   activeClassname?: string;
@@ -17,6 +19,7 @@ const DisplayPagination: React.FC<Props> = ({
   previousPage,
   nextPage,
   goToPage,
+  buttons,
   containerClassname = "",
   nextPrevClassname = "",
   activeClassname = "active",
@@ -25,71 +28,31 @@ const DisplayPagination: React.FC<Props> = ({
   return (
     <div className={containerClassname}>
       <button onClick={() => previousPage()} className={nextPrevClassname}>
-        &lt;
+        &lsaquo;
       </button>
-      {pages?.length >= 6 ? (
-        <React.Fragment>
-          {activePage >= 3 && (
-            <React.Fragment>
-              <button
-                onClick={() => goToPage(1)}
-                className={1 === activePage ? activeClassname : ""}
-              >
-                1
-              </button>
-              <span>...</span>
-            </React.Fragment>
-          )}
-          {pages?.map?.((pageNum) => {
-            // Three buttons, the one before, active, and after
-            const isPartOfFirstThree =
-              activePage === 1 && pageNum === activePage + 2;
-            const isPartOfLastThree =
-              activePage === pages.length && pageNum === pages.length - 2;
-            if (
-              pageNum !== activePage &&
-              pageNum !== activePage - 1 &&
-              pageNum !== activePage + 1 &&
-              !isPartOfFirstThree &&
-              !isPartOfLastThree // if all of these are false, ignore button (return)
-            )
-              return;
-            return (
-              // else return button
-              <button
-                onClick={() => goToPage(pageNum)}
-                key={"pagination-button-" + pageNum}
-                className={pageNum === activePage ? activeClassname : ""}
-              >
-                {pageNum}
-              </button>
-            );
-          })}
-          {activePage <= pages.length - 2 && (
-            <React.Fragment>
-              <span>...</span>
-              <button
-                onClick={() => goToPage(pages.length)}
-                className={pages.length === activePage ? activeClassname : ""}
-              >
-                {pages.length}
-              </button>
-            </React.Fragment>
-          )}
-        </React.Fragment>
-      ) : (
-        pages?.map?.((pageNum) => (
-          <button
-            onClick={() => goToPage(pageNum)}
-            key={"pagination-button-" + pageNum}
-            className={pageNum === activePage ? activeClassname : ""}
-          >
+      {buttons.map((pageNum, index) => {
+        if (typeof pageNum === "string") {
+          return (
+            <span key={`ellipsis-${index}`} style={{ userSelect: "none" }}>
+              &hellip;
+            </span>
+          );
+        }
+        const props = {
+          onClick: () => goToPage(pageNum),
+          className:
+            activePage === pageNum
+              ? `${activeClassname || "active"}`
+              : undefined,
+        };
+        return (
+          <button {...props} key={`pagination-button-${pageNum}`}>
             {pageNum}
           </button>
-        ))
-      )}
+        );
+      })}
       <button onClick={() => nextPage()} className={nextPrevClassname}>
-        &gt;
+        &rsaquo;
       </button>
     </div>
   );

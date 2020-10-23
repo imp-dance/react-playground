@@ -12,6 +12,7 @@ interface IReturn {
   previousPage: () => void;
   nextPage: () => void;
   goToPage: (pageNum: number) => void;
+  buttons: Array<number | string>;
 }
 
 export default function usePagination(
@@ -38,7 +39,7 @@ export default function usePagination(
   };
 
   const goToPage = (pageNum: number) => {
-    if (pageNum < 1) {
+    if (pageNum <= 1) {
       setActivePage(1);
       return;
     }
@@ -48,6 +49,47 @@ export default function usePagination(
     }
     setActivePage(pageNum);
     onPageChange && onPageChange();
+  };
+
+  const calculateButtons = (): Array<number | string> => {
+    const buttons: Array<number | string> = [1, pages.length];
+    if (pages?.length <= 6) {
+      return pages;
+    }
+    if (activePage < 3) {
+      buttons.splice(-1, 0, 2);
+      buttons.splice(-1, 0, 3);
+      buttons.splice(-1, 0, 4);
+      buttons.splice(-1, 0, "...");
+      return buttons;
+    }
+    if (activePage === pages.length - 1) {
+      buttons.splice(-1, 0, "...");
+      buttons.splice(-1, 0, activePage - 2);
+      buttons.splice(-1, 0, activePage - 1);
+      buttons.splice(-1, 0, activePage);
+      return buttons;
+    }
+    if (activePage === pages.length) {
+      buttons.splice(-1, 0, "...");
+      buttons.splice(-1, 0, activePage - 3);
+      buttons.splice(-1, 0, activePage - 2);
+      buttons.splice(-1, 0, activePage - 1);
+      return buttons;
+    }
+    if (activePage >= 3) {
+      if (activePage !== 3) {
+        buttons.splice(1, 0, "...");
+      }
+      buttons.splice(-1, 0, activePage - 1);
+      buttons.splice(-1, 0, activePage);
+      buttons.splice(-1, 0, activePage + 1);
+      if (activePage !== pages.length - 2) {
+        buttons.splice(-1, 0, "...");
+      }
+      return buttons;
+    }
+    return buttons;
   };
 
   useEffect(() => {
@@ -78,6 +120,7 @@ export default function usePagination(
       nextPage,
       previousPage,
       goToPage,
+      buttons: calculateButtons(),
     },
   ];
 }

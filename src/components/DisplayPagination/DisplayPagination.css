@@ -1,0 +1,22 @@
+.paginationContainer {
+  background: #222;
+  padding: 5px;
+  text-align: center;
+}
+
+.paginationContainer button {
+  background: #111;
+  border: none;
+  color: #999;
+  padding: 5px 10px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.paginationContainer button.active {
+  background: rgb(86, 66, 160);
+}
+
+.paginationContainer * + * {
+  margin-left: 0.5rem;
+}

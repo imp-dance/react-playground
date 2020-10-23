@@ -1,40 +1,15 @@
 const list: Array<any> = [
   {
-    title: "Among Us",
-    body: "Sus",
-    tags: ["Impostor", "Crewmate"],
-    nested: {
-      object: "heyhoooooo",
-    },
-  },
-  {
-    title: "The Simpsons",
-    body: "Marge, Homer, Bart, Maggie",
-    tags: ["TV Show", "Television", { test: "øø" }],
-  },
-  {
-    title: "Title",
-    body: "Lorem ipsum",
-    tags: ["hi", "yall"],
-    id: 51234,
-  },
-  {
-    title: "More content",
-    body: "rampegutt",
-    tags: ["hi", "ball"],
-    id: 51234,
-  },
-  {
-    title: "Heyho mister",
+    title: "I should've generated this list",
     body: "blablabla",
     tags: ["hi", "ball"],
-    id: 51234,
+    id: 54321,
   },
   {
-    title: "Legooooo",
+    title: "Not a fun process",
     body: "Lorem ipsum",
     tags: ["hia", "knall"],
-    id: 51234,
+    id: 10111,
   },
   {
     title: "Among Us",
@@ -53,25 +28,67 @@ const list: Array<any> = [
     title: "Title",
     body: "Lorem ipsum",
     tags: ["hi", "yall"],
-    id: 51234,
+    id: 54138,
   },
   {
     title: "More content",
     body: "rampegutt",
     tags: ["hi", "ball"],
-    id: 51234,
+    id: 88876,
   },
   {
     title: "Heyho mister",
     body: "blablabla",
     tags: ["hi", "ball"],
-    id: 51234,
+    id: 44467,
   },
   {
     title: "Legooooo",
     body: "Lorem ipsum",
     tags: ["hia", "knall"],
-    id: 51234,
+    id: 43256,
+  },
+  {
+    title: "Along Us",
+    body: "Sus",
+    tags: ["Impostor", "Crewmate"],
+    nested: {
+      object: "heyhooooooø",
+    },
+  },
+  {
+    title: "Family Guy",
+    body: "Peter, Louis, Meg, Chris",
+    tags: ["TV Show", "Television", { test: "ææ" }],
+  },
+  {
+    title: "Body",
+    body: "Lorem ipsum yo",
+    tags: ["hi", "yall"],
+    id: 54124,
+  },
+  {
+    title: "Even more content",
+    body: "rampegutt",
+    tags: ["hi", "ball"],
+    id: 93451,
+  },
+  {
+    title: "Family Guy",
+    body: "Peter, Louis, Meg, Chris",
+    tags: ["TV Show", "Television", { test: "ææ" }],
+  },
+  {
+    title: "Body",
+    body: "Lorem ipsum yo",
+    tags: ["hi", "yall"],
+    id: 54124,
+  },
+  {
+    title: "Even more content",
+    body: "rampegutt",
+    tags: ["hi", "ball"],
+    id: 93451,
   },
 ];
 

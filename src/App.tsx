@@ -1,7 +1,7 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import SearchList from './components/SearchList/SearchList';
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import SearchList from "./components/SearchList/SearchList";
 
 function App() {
   return (
@@ -10,7 +10,6 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
       </header>
       <main>
-        <h3>Search</h3>
         <SearchList />
       </main>
     </div>
