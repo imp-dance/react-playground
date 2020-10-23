@@ -53,7 +53,7 @@ function searchString(
   search.split(" ").forEach((searchWord) => {
     // for every word in searchbox
     const match = sentence.search(searchWord) !== -1;
-    if (match && searchWord.length > 1) matches++;
+    if (search === "" || match) matches++;
   });
 
   return matches > 0;
@@ -158,32 +158,38 @@ function searchArray(
   search = formatSearch(search);
   let matches = 0;
   array.forEach((searchTerm: any) => {
-    if (isString(searchTerm)) {
-      if (searchFunc && searchFunc(searchTerm, search)) {
-        matches++;
-      } else if (searchString(searchTerm, search)) {
-        matches++;
+    switch (true) {
+      case isString(searchTerm): {
+        if (searchFunc && searchFunc(searchTerm, search)) {
+          matches++;
+        } else if (searchString(searchTerm, search)) {
+          matches++;
+        }
+        break;
       }
-    } else if (
-      isArray(searchTerm) &&
-      searchArray(searchTerm, search, searchFunc, searchableKeys) > 0
-    ) {
-      matches++;
-    } else if (isNumber(searchTerm)) {
-      const stringifiedNumber = searchTerm.toString();
-      if (searchString(stringifiedNumber, search, searchFunc)) {
+      case isArray(searchTerm) &&
+        searchArray(searchTerm, search, searchFunc, searchableKeys): {
         matches++;
+        break;
       }
-    } else {
-      // is object
-      const newObject = searchObject(
-        searchTerm,
-        search,
-        searchableKeys,
-        searchFunc
-      );
-      if (newObject.__match.length > 0) {
-        matches++;
+      case isNumber(searchTerm): {
+        const stringifiedNumber = searchTerm.toString();
+        if (searchString(stringifiedNumber, search, searchFunc)) {
+          matches++;
+        }
+        break;
+      }
+      case isObject(searchTerm):
+      default: {
+        const newObject = searchObject(
+          searchTerm,
+          search,
+          searchableKeys,
+          searchFunc
+        );
+        if (newObject.__match.length > 0) {
+          matches++;
+        }
       }
     }
   });

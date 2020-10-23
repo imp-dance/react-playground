@@ -1,17 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-interface IDisplayData{
-    data: any;
+declare global {
+  interface Window {
+    Prism: any;
+  }
 }
 
-const DisplayData: React.FC<IDisplayData> = ({ data }) => {
-    return (
-        <pre style={{maxWidth: "100%", overflow: "auto"}}>
-            <code>
-                {JSON.stringify(data, null, 2)}
-            </code>
-        </pre>
-    );
+window.Prism = window.Prism || {};
+
+interface IDisplayData {
+  data: any;
+  language?: string;
 }
+
+const DisplayData: React.FC<IDisplayData> = ({ data, language = "js" }) => {
+  useEffect(() => {
+    window.Prism.highlightAll();
+  }, [language, data]);
+  return (
+    <pre style={{ maxWidth: "100%", overflow: "auto" }}>
+      <code className={`language-${language}`}>
+        {JSON.stringify(data, null, 2)}
+      </code>
+    </pre>
+  );
+};
 
 export default DisplayData;
