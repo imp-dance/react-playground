@@ -1,5 +1,4 @@
 import React from "react";
-import "./DisplayPagination.css";
 
 interface Props {
   pages: Array<number>;
@@ -36,7 +35,7 @@ const DisplayPagination: React.FC<Props> = ({
       <button onClick={() => previousPage()} className={nextPrevClassname}>
         {prevButton}
       </button>
-      {buttons.map((pageNum, index) => {
+      {buttons.map((pageNum: number | string, index: number) => {
         if (typeof pageNum === "string") {
           return (
             <span key={`ellipsis-${index}`} style={{ userSelect: "none" }}>

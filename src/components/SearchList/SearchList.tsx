@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./SearchList.css";
+import "../DisplayPagination/DisplayPagination.css";
 import useSearch from "../../hooks/useSearch";
 import DisplayData from "../DisplayData/DisplayData";
-import usePagination from "../../hooks/usePagination";
-import DisplayPagination from "../DisplayPagination/DisplayPagination";
+import usePagination, { DisplayPagination } from "@impedans/usepagination";
 
 const moreData = [
   { name: "Håkon" },
@@ -70,13 +70,14 @@ const moreData = [
 ];
 
 function SearchList() {
+  const [maxButtons, setMaxButtons] = useState("5");
   const [select, setSelect] = useState("5");
   const [list, setList] = useState([{}]);
   const [searchProps, filteredList] = useSearch(list);
   const [paginatedList, paginationProps] = usePagination(filteredList, {
     perPage: parseInt(select),
     isHidden: (item) => item.__match && item.__match.length !== 0,
-    maxButtons: 8,
+    maxButtons: parseInt(maxButtons),
   });
 
   useEffect(() => {
@@ -123,6 +124,8 @@ function SearchList() {
         prevButton={"Previous"}
         nextPrevClassname="nextPrev"
       />
+      <br />
+      <strong>perPage</strong>
       <select
         value={select}
         onChange={(e) => {
@@ -134,6 +137,20 @@ function SearchList() {
         <option>5</option>
         <option>7</option>
         <option>10</option>
+      </select>
+      <br />
+      <strong>maxButtons</strong>
+      <select
+        value={maxButtons}
+        onChange={(e) => {
+          setMaxButtons(e.currentTarget.value);
+        }}
+      >
+        <option>5</option>
+        <option>6</option>
+        <option>7</option>
+        <option>8</option>
+        <option>9</option>
       </select>
       <DisplayData
         data={filteredList.filter(
