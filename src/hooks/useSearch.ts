@@ -38,7 +38,16 @@ function useSearch(
 }
 
 function formatSearch(text: string) {
-  return text.trim().toLowerCase();
+  return `${text
+    .trim()
+    .toLowerCase()
+    .replace("+", "")
+    .replace("*", "")
+    .replace("(", "")
+    .replace(")", "")
+    .replace("[", "")
+    .replace("]", "")
+    .toString()}`;
 }
 
 function searchString(
@@ -53,7 +62,7 @@ function searchString(
   const searchWords = search.split(" ");
   searchWords.forEach((searchWord) => {
     // for every word in searchbox
-    const match = sentence.search(searchWord) !== -1;
+    const match = sentence.search(searchWord.toString()) !== -1;
     if (
       search === "" || // Have not started searching, all should match
       (searchWords.length === 1 && match) || // Only searched one word, allow 1-letter words

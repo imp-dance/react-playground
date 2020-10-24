@@ -13,6 +13,60 @@ const moreData = [
   { name: "Askeladden" },
   { name: "Bob" },
   { name: "John" },
+  { name: "Håkon" },
+  { name: "Ole" },
+  { name: "Per" },
+  { name: "Pål" },
+  { name: "Askeladden" },
+  { name: "Bob" },
+  { name: "John" },
+  { name: "Håkon" },
+  { name: "Ole" },
+  { name: "Per" },
+  { name: "Pål" },
+  { name: "Askeladden" },
+  { name: "Bob" },
+  { name: "John" },
+  { name: "Håkon" },
+  { name: "Ole" },
+  { name: "Per" },
+  { name: "Pål" },
+  { name: "Askeladden" },
+  { name: "Bob" },
+  { name: "John" },
+  { name: "Håkon" },
+  { name: "Ole" },
+  { name: "Per" },
+  { name: "Pål" },
+  { name: "Askeladden" },
+  { name: "Bob" },
+  { name: "John" },
+  { name: "Per" },
+  { name: "Pål" },
+  { name: "Askeladden" },
+  { name: "Bob" },
+  { name: "John" },
+  { name: "Håkon" },
+  { name: "Ole" },
+  { name: "Per" },
+  { name: "Pål" },
+  { name: "Askeladden" },
+  { name: "Bob" },
+  { name: "John" },
+  { name: "Håkon" },
+  { name: "Ole" },
+  { name: "Per" },
+  { name: "Pål" },
+  { name: "Askeladden" },
+  { name: "Bob" },
+  { name: "John" },
+  { name: "Håkon" },
+  { name: "Ole" },
+  { name: "Per" },
+  { name: "Pål" },
+  { name: "Askeladden" },
+  { name: "Bob" },
+  { name: "John" },
 ];
 
 function SearchList() {
@@ -22,6 +76,7 @@ function SearchList() {
   const [paginatedList, paginationProps] = usePagination(filteredList, {
     perPage: parseInt(select),
     isHidden: (item) => item.__match && item.__match.length !== 0,
+    maxButtons: 8,
   });
 
   useEffect(() => {
@@ -31,6 +86,16 @@ function SearchList() {
         setList([...data.results, ...moreData]);
       });
   }, []);
+
+  const restListAmount = parseInt(select) - paginatedList.length;
+  const restList = [];
+  for (let i = 0; i < restListAmount; i++) {
+    restList.push(
+      <li key={`seperator-${i}`} style={{ userSelect: "none" }}>
+        &nbsp;
+      </li>
+    );
+  }
 
   return (
     <div className="searchList">
@@ -46,12 +111,17 @@ function SearchList() {
       />
       <ul>
         {paginatedList.map((item, index) => (
-          <li key={index}>{item.name}</li>
+          <li key={`index-${item.name}-${index}`}>{item.name}</li>
         ))}
+        {restList}
       </ul>
       <DisplayPagination
         {...paginationProps}
         containerClassname="paginationContainer"
+        pageNumFunc={(pageNum) => `${pageNum}`}
+        nextButton={"Next"}
+        prevButton={"Previous"}
+        nextPrevClassname="nextPrev"
       />
       <select
         value={select}
@@ -65,7 +135,11 @@ function SearchList() {
         <option>7</option>
         <option>10</option>
       </select>
-      <DisplayData data={filteredList} />
+      <DisplayData
+        data={filteredList.filter(
+          (item) => item.__match && item.__match.length > 0
+        )}
+      />
     </div>
   );
 }

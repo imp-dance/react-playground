@@ -17,6 +17,10 @@
   background: rgb(86, 66, 160);
 }
 
+.paginationContainer button.nextPrev {
+  opacity: 0.5;
+}
+
 .paginationContainer * + * {
   margin-left: 0.5rem;
 }

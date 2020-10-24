@@ -11,6 +11,9 @@ interface Props {
   containerClassname?: string;
   nextPrevClassname?: string;
   activeClassname?: string;
+  prevButton?: React.ReactNode;
+  nextButton?: React.ReactNode;
+  pageNumFunc?: (item: number) => React.ReactNode;
 }
 
 const DisplayPagination: React.FC<Props> = ({
@@ -23,12 +26,15 @@ const DisplayPagination: React.FC<Props> = ({
   containerClassname = "",
   nextPrevClassname = "",
   activeClassname = "active",
+  prevButton = <>&lsaquo;</>,
+  nextButton = <>&rsaquo;</>,
+  pageNumFunc = (item) => item,
 }) => {
   if (pages?.length <= 1) return null;
   return (
     <div className={containerClassname}>
       <button onClick={() => previousPage()} className={nextPrevClassname}>
-        &lsaquo;
+        {prevButton}
       </button>
       {buttons.map((pageNum, index) => {
         if (typeof pageNum === "string") {
@@ -47,12 +53,12 @@ const DisplayPagination: React.FC<Props> = ({
         };
         return (
           <button {...props} key={`pagination-button-${pageNum}`}>
-            {pageNum}
+            {pageNumFunc(pageNum)}
           </button>
         );
       })}
       <button onClick={() => nextPage()} className={nextPrevClassname}>
-        &rsaquo;
+        {nextButton}
       </button>
     </div>
   );

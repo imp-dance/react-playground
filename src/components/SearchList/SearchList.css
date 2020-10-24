@@ -29,7 +29,7 @@
 }
 
 .searchList pre {
-  max-height: 60vh;
+  max-height: 40vh;
   overflow: auto;
   font-size: 0.8rem !important;
 }

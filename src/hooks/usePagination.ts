@@ -4,6 +4,7 @@ interface IOptions {
   perPage?: number;
   onPageChange?: () => void;
   isHidden?: (item: any) => void;
+  maxButtons?: number;
 }
 
 interface IReturn {
@@ -22,7 +23,7 @@ export default function usePagination(
   const [activePage, setActivePage] = useState(1);
   const [pages, setPages] = useState([1]);
   const [filteredList, setFilteredList] = useState([{}]);
-  const { perPage, onPageChange, isHidden } = options;
+  const { perPage, onPageChange, isHidden, maxButtons } = options;
 
   const nextPage = () => {
     if (activePage !== pages.length) {
@@ -53,37 +54,45 @@ export default function usePagination(
 
   const calculateButtons = (): Array<number | string> => {
     const buttons: Array<number | string> = [1, pages.length];
+    const mB = maxButtons && maxButtons >= 5 ? maxButtons : 5; // minimum and default 5
+    const amountOfButtons = mB - 2; // minus 1, pages.length
     if (pages?.length <= 6) {
       return pages;
     }
-    if (activePage < 3) {
-      buttons.splice(-1, 0, 2);
-      buttons.splice(-1, 0, 3);
-      buttons.splice(-1, 0, 4);
+    if (activePage < amountOfButtons) {
+      for (let i = 0; i < amountOfButtons; i++) {
+        buttons.splice(-1, 0, i + 2);
+      }
       buttons.splice(-1, 0, "...");
       return buttons;
     }
-    if (activePage === pages.length - 1) {
+    if (activePage >= pages.length - (amountOfButtons - 1)) {
       buttons.splice(-1, 0, "...");
-      buttons.splice(-1, 0, activePage - 2);
-      buttons.splice(-1, 0, activePage - 1);
-      buttons.splice(-1, 0, activePage);
-      return buttons;
-    }
-    if (activePage === pages.length) {
-      buttons.splice(-1, 0, "...");
-      buttons.splice(-1, 0, activePage - 3);
-      buttons.splice(-1, 0, activePage - 2);
-      buttons.splice(-1, 0, activePage - 1);
+      for (let i = amountOfButtons; i > 0; i--) {
+        buttons.splice(-1, 0, pages.length - i);
+      }
       return buttons;
     }
     if (activePage >= 3) {
-      if (activePage !== 3) {
-        buttons.splice(1, 0, "...");
+      if (activePage > 3) {
+        buttons.splice(-1, 0, "...");
       }
-      buttons.splice(-1, 0, activePage - 1);
-      buttons.splice(-1, 0, activePage);
-      buttons.splice(-1, 0, activePage + 1);
+      let newAmountOfButtons = amountOfButtons;
+      const isOdd = amountOfButtons & 1;
+      if (isOdd) {
+        newAmountOfButtons = amountOfButtons - 1; // Turn even so we can put half and half on each side of activePage
+      }
+      if (newAmountOfButtons + 3 > mB) {
+        newAmountOfButtons = newAmountOfButtons - 2; // amount of pages would be too high, so we'd rather have one less on each side
+      }
+      const halfOfButtons = newAmountOfButtons / 2;
+      for (let i = halfOfButtons; i > 0; i--) {
+        buttons.splice(-1, 0, activePage - i); // buttons before activePage
+      }
+      buttons.splice(-1, 0, activePage); // activePage
+      for (let i = 1; i <= halfOfButtons; i++) {
+        buttons.splice(-1, 0, activePage + i); // buttons after activePage
+      }
       if (activePage !== pages.length - 2) {
         buttons.splice(-1, 0, "...");
       }
