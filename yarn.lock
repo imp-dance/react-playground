@@ -1739,10 +1739,10 @@
   dependencies:
     "@hapi/hoek" "^8.3.0"
 
-"@impedans/usepagination@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@impedans/usepagination/-/usepagination-1.0.0.tgz#36b8d46e0e41d73bd9898df48a56acd1aad7aa86"
-  integrity sha512-+spu7d0H4Zj72KWefDWalnsoeDc4mSpVy6JEIvZS131zUb1bZDr9abCuyGAhwNfrUabdEelbCo6Dfd3gSF2LOg==
+"@impedans/usepagination@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@impedans/usepagination/-/usepagination-1.0.2.tgz#d18f98771f750816d135ad42193dae6ea7ed3c43"
+  integrity sha512-+lbncjEp9Skl4nFGlgwC53kkdoGJDIx6ol1fhz7fGa8dY/ukwtsTxvQ27A4pERcabEWPuT5vwC0fCuqX2wrLMQ==
   dependencies:
     "@material/react-button" "^0.15.0"
     prop-types "^15.7.2"

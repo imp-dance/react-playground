@@ -119,7 +119,7 @@ function SearchList() {
       <DisplayPagination
         {...paginationProps}
         containerClassname="paginationContainer"
-        pageNumFunc={(pageNum) => `${pageNum}`}
+        renderPageNum={(pageNum) => `#${pageNum}`}
         nextButton={"Next"}
         prevButton={"Previous"}
         nextPrevClassname="nextPrev"
