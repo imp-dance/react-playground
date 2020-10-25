@@ -81,13 +81,13 @@ The hook returns an array containing two items:
 
 DisplayPagination takes a lot of props. First of all, it takes the entire **PaginationObject** as defined above, but it also takes a few more optional props:
 
-| Key                    | Description                                                               | Type                              |
-| ---------------------- | ------------------------------------------------------------------------- | --------------------------------- |
-| **containerClassname** | Classname for the container                                               | string                            |
-| **nextPrevClassname**  | Classname for the next & previous page buttons                            | string                            |
-| **activeClassname**    | Classname for the button for the active pagenumber                        | string                            |
-| **prevButton**         | The contents of the previous page button                                  | React.ReactNode                   |
-| **nextButton**         | The contents of the next page button                                      | React.ReactNode                   |
-| **pageNumFunc**        | A function that runs to render each of the page numbers (read more below) | (item: number) => React.ReactNode |
+| Key                                  | Description                                                               | Type                              |
+| ------------------------------------ | ------------------------------------------------------------------------- | --------------------------------- |
+| **containerClassname**               | Classname for the container                                               | string                            |
+| **nextPrevClassname**                | Classname for the next & previous page buttons                            | string                            |
+| **activeClassname**                  | Classname for the button for the active pagenumber                        | string                            |
+| **prevButton**                       | The contents of the previous page button                                  | React.ReactNode                   |
+| **nextButton**                       | The contents of the next page button                                      | React.ReactNode                   |
+| **pageNumFunc** or **renderPageNum** | A function that runs to render each of the page numbers (read more below) | (item: number) => React.ReactNode |
 
-`pageNumFunc` runs on the inside content of the page-number buttons. This is if you want to change how they are rendered, for example if instead of showing just the page number (_1, 2, 3, etc_) you wanted to show "Page x" (_Page 1, Page 2, Page 3, etc_), then you could supply this function: `(item) => 'Page ' + item`
+`renderPageNum` (alias `pageNumFunc`) runs on the inside content of the page-number buttons. This is if you want to change how they are rendered, for example if instead of showing just the page number (_1, 2, 3, etc_) you wanted to show "Page x" (_Page 1, Page 2, Page 3, etc_), then you could supply this function: `(item) => 'Page ' + item`

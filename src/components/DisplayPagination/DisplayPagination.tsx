@@ -13,6 +13,7 @@ interface Props {
   prevButton?: React.ReactNode;
   nextButton?: React.ReactNode;
   pageNumFunc?: (item: number) => React.ReactNode;
+  renderPageNum?: (item: number) => React.ReactNode;
 }
 
 const DisplayPagination: React.FC<Props> = ({
@@ -27,9 +28,16 @@ const DisplayPagination: React.FC<Props> = ({
   activeClassname = "active",
   prevButton = <>&lsaquo;</>,
   nextButton = <>&rsaquo;</>,
-  pageNumFunc = (item) => item,
+  pageNumFunc,
+  renderPageNum,
 }) => {
   if (pages?.length <= 1) return null;
+  let renderFunc: (item: number) => React.ReactNode = (item) => item;
+  if (renderPageNum) {
+    renderFunc = renderPageNum;
+  } else if (pageNumFunc) {
+    renderFunc = pageNumFunc;
+  }
   return (
     <div className={containerClassname}>
       <button onClick={() => previousPage()} className={nextPrevClassname}>
@@ -52,7 +60,7 @@ const DisplayPagination: React.FC<Props> = ({
         };
         return (
           <button {...props} key={`pagination-button-${pageNum}`}>
-            {pageNumFunc(pageNum)}
+            {renderFunc(pageNum)}
           </button>
         );
       })}
