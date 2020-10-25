@@ -7,5 +7,14 @@ If you want to contribute to this repository, or one of the NPM packages that ar
 
 ## @impedans/usepagination
 
+### Files
+
 - [usePagination.ts](https://github.com/imp-dance/react-playground/blob/master/src/hooks/usePagination.ts)
 - [DisplayPagination.tsx](https://github.com/imp-dance/react-playground/blob/master/src/components/DisplayPagination/DisplayPagination.tsx)
+
+### Development
+
+* Setup development environment (`yarn start` / `npm run start`)
+* Open up [SearchList.tsx](https://github.com/imp-dance/react-playground/blob/master/src/components/SearchList/SearchList.tsx)
+* Change import from "@impedans/usepagination" to the local files
+* Do changes and see live updates
