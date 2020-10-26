@@ -1739,10 +1739,10 @@
   dependencies:
     "@hapi/hoek" "^8.3.0"
 
-"@impedans/usepagination@^1.0.3":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@impedans/usepagination/-/usepagination-1.0.3.tgz#ba5060ae426f8a60c1a7a2a983f8d8794017abe7"
-  integrity sha512-LVNccgXdaaPLlKoiPD+lIxaPmYmeLNnAB2sz3DgpXKnpu414nsSdTAYuWIyashyBWizxNFisQ0ognfqf9LZ0YA==
+"@impedans/usepagination@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@impedans/usepagination/-/usepagination-1.0.4.tgz#5f0c197f1ad24646cd88d2a4e2a2e2847d8c51fb"
+  integrity sha512-+r18AN+dhNPz2sl5H0nMBk4vOx607z5ZGGuHSsDw4u9oVZzuqmIqi3HK5lNVdzFGjdGvzhAyLoZ1ySNx6J5lLg==
   dependencies:
     prop-types "^15.7.2"
 
