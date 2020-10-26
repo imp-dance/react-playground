@@ -42,10 +42,12 @@ export default function usePagination(
   const goToPage = (pageNum: number) => {
     if (pageNum <= 1) {
       setActivePage(1);
+      onPageChange && onPageChange();
       return;
     }
     if (pageNum > pages.length) {
       setActivePage(pages.length);
+      onPageChange && onPageChange();
       return;
     }
     setActivePage(pageNum);

@@ -5,70 +5,6 @@ import useSearch from "../../hooks/useSearch";
 import DisplayData from "../DisplayData/DisplayData";
 import usePagination, { DisplayPagination } from "@impedans/usepagination";
 
-const moreData = [
-  { name: "Håkon" },
-  { name: "Ole" },
-  { name: "Per" },
-  { name: "Pål" },
-  { name: "Askeladden" },
-  { name: "Bob" },
-  { name: "John" },
-  { name: "Håkon" },
-  { name: "Ole" },
-  { name: "Per" },
-  { name: "Pål" },
-  { name: "Askeladden" },
-  { name: "Bob" },
-  { name: "John" },
-  { name: "Håkon" },
-  { name: "Ole" },
-  { name: "Per" },
-  { name: "Pål" },
-  { name: "Askeladden" },
-  { name: "Bob" },
-  { name: "John" },
-  { name: "Håkon" },
-  { name: "Ole" },
-  { name: "Per" },
-  { name: "Pål" },
-  { name: "Askeladden" },
-  { name: "Bob" },
-  { name: "John" },
-  { name: "Håkon" },
-  { name: "Ole" },
-  { name: "Per" },
-  { name: "Pål" },
-  { name: "Askeladden" },
-  { name: "Bob" },
-  { name: "John" },
-  { name: "Per" },
-  { name: "Pål" },
-  { name: "Askeladden" },
-  { name: "Bob" },
-  { name: "John" },
-  { name: "Håkon" },
-  { name: "Ole" },
-  { name: "Per" },
-  { name: "Pål" },
-  { name: "Askeladden" },
-  { name: "Bob" },
-  { name: "John" },
-  { name: "Håkon" },
-  { name: "Ole" },
-  { name: "Per" },
-  { name: "Pål" },
-  { name: "Askeladden" },
-  { name: "Bob" },
-  { name: "John" },
-  { name: "Håkon" },
-  { name: "Ole" },
-  { name: "Per" },
-  { name: "Pål" },
-  { name: "Askeladden" },
-  { name: "Bob" },
-  { name: "John" },
-];
-
 function SearchList() {
   const [maxButtons, setMaxButtons] = useState("5");
   const [select, setSelect] = useState("5");
@@ -81,11 +17,10 @@ function SearchList() {
   });
 
   useEffect(() => {
-    fetch("https://pokeapi.co/api/v2/berry/")
+    fetch("https://jsonplaceholder.typicode.com/todos/")
       .then((res) => res.json())
-      .then((data) => {
-        setList([...data.results, ...moreData]);
-      });
+      .then((data) => setList(data))
+      .catch((err) => console.error(err));
   }, []);
 
   const restListAmount = parseInt(select) - paginatedList.length;
@@ -112,7 +47,7 @@ function SearchList() {
       />
       <ul>
         {paginatedList.map((item, index) => (
-          <li key={`index-${item.name}-${index}`}>{item.name}</li>
+          <li key={`index-${item.id}-${index}`}>{item.title}</li>
         ))}
         {restList}
       </ul>

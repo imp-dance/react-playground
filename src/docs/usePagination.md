@@ -16,11 +16,16 @@ function App(){
     });
 
     useEffect(() => {
-        fetch("https://pokeapi.co/api/v2/ability")
+        let unMounted = false;
+        fetch("https://jsonplaceholder.typicode.com/todos/")
             .then(res => res.json())
             .then(res => {
-               setData(res.results);
-            });
+               if (!unMounted) setData(res);
+            })
+            .catch(err => console.error(err));
+        return () => {
+            unMounted = true;
+        }
     }, []);
 
     return (
