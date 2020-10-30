@@ -7,7 +7,12 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        <img
+          src={logo}
+          title="React Playground"
+          className="App-logo"
+          alt="logo"
+        />
       </header>
       <main>
         <SearchList />
