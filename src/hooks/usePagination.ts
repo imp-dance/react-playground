@@ -17,8 +17,8 @@ interface IReturn {
 }
 
 export default function usePagination(
-  list: Array<any> = [{}],
-  options: IOptions = { perPage: 10, onPageChange: () => {} }
+  list: Array<any> | null = [{}],
+  options: IOptions = { perPage: 10 }
 ): [Array<any>, IReturn] {
   const [activePage, setActivePage] = useState(1);
   const [pages, setPages] = useState([1]);
@@ -104,22 +104,24 @@ export default function usePagination(
   };
 
   useEffect(() => {
-    const pp = perPage ?? 10;
-    const defaultHiddenFunc = (item: any) => true;
-    const listFunc = isHidden ?? defaultHiddenFunc;
-    const parsedList = list.filter(listFunc);
-    setFilteredList(parsedList.slice(activePage * pp - pp, activePage * pp));
-
-    const calculatePages = () => {
+    if (list) {
       const pp = perPage ?? 10;
-      const amountOfPages: number = Math.ceil(parsedList.length / pp);
-      const arrayOfPageNums: Array<number> = [];
-      for (let i = 0; i < amountOfPages; i++) {
-        arrayOfPageNums.push(i + 1);
-      }
-      setPages(arrayOfPageNums);
-    };
-    calculatePages();
+      const defaultHiddenFunc = (item: any) => true;
+      const listFunc = isHidden ?? defaultHiddenFunc;
+      const parsedList = list.filter(listFunc);
+      setFilteredList(parsedList.slice(activePage * pp - pp, activePage * pp));
+
+      const calculatePages = () => {
+        const pp = perPage ?? 10;
+        const amountOfPages: number = Math.ceil(parsedList.length / pp);
+        const arrayOfPageNums: Array<number> = [];
+        for (let i = 0; i < amountOfPages; i++) {
+          arrayOfPageNums.push(i + 1);
+        }
+        setPages(arrayOfPageNums);
+      };
+      calculatePages();
+    }
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [list, activePage, perPage]);
 
