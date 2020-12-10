@@ -2,6 +2,10 @@
 
 This package comes with a hook and a display-component that's built to recieve the hook data. You can easily render your own pagination buttons using just the data from the hook, but the display component makes your life a little bit easier still.
 
+## Code
+* [usePagination.ts](https://github.com/imp-dance/react-playground/blob/master/src/hooks/usePagination.ts)
+* [DisplayPagination.tsx](https://github.com/imp-dance/react-playground/blob/master/src/components/DisplayPagination/DisplayPagination.tsx)
+
 ## Example
 
 ```jsx
